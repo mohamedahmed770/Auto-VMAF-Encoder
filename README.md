@@ -13,6 +13,8 @@ An advanced Python script for video encoding that uses a data-driven approach to
 
 🖥️ Console Interface
 
+![Demo GIF] (images/script in action processing cached video.gif)  
+
 Real-time encoding progress with multi-threaded workers and performance statistics
 🎯 Key Features
 Smart Encoding
@@ -188,4 +190,5 @@ Open Source Community for the excellent Python libraries used
 
 Built with ❤️ and a lot of debugging
 Star this repository if it helped you encode better videos! ⭐
+
 
