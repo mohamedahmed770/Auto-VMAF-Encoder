@@ -47,16 +47,19 @@ The script provides a clean and powerful live console UI powered by the `rich` l
 
 **The interface provides at-a-glance information on:**
 
-* **Overall Batch Progress:** A summary panel shows files completed, total space saved, elapsed time, and a dynamically updated ETA.
+* **Overall Batch Progress: A summary panel shows files completed, total space saved, elapsed time, and a dynamically updated ETA (which improves in accuracy over time).
 * **Parallel Worker Status:** See the status and logs for each video being processed in its own dedicated panel.
 * **Real-Time Progress Bars:** Detailed progress bars for time-consuming operations like VMAF analysis and the final encode.
 * **System Monitoring:** Live RAM usage to ensure system stability during intensive encodes.
-* Disclaimer: ETA is flawed as no database information was used for these encodings. The script starts showing accurate ETAs after completing ~10 encodes.
+* **Disclaimer**: ETA is flawed in the GIF above as no database information was used for these encodings. The script starts showing accurate ETAs after completing ~10 encodes.
 ---
 
 ## 🚀 Getting Started
 
-This guide will walk you through setting up the script and its dependencies.
+> **Note for Complete Beginners:**
+> For a detailed, step-by-step guide with screenshots covering everything from installing Python to configuring the script, please see the **[Complete User Manual.pdf](https://github.com/Snickrr/Auto-VMAF-Encoder/blob/main/Auto%20Vmaf%20Encoder%20Install%20Guide%2C%20Manual%20%26%20Technical%20Documentation%20V1.0.pdf)** included in this repository.
+>
+> The instructions below are a faster quick-start guide for users already familiar with Github, Python and command-line tools.
 
 ### Prerequisites
 
@@ -93,7 +96,7 @@ Before you begin, ensure you have the following installed and accessible:
 
 ## 🤝 Contributing
 
-This project was created by a developer with no prior coding experience, using AI assistance for advanced mathematics and coding implementation. The core ideas and extensive debugging/fine-tuning were done manually.
+This project was created by someone with no prior coding experience, using AI assistance for advanced mathematics and coding implementation. The core ideas and extensive debugging/fine-tuning were done manually.
 
 Contributions are welcome! Please feel free to:
 * Report bugs or suggest features by opening an issue.
@@ -115,6 +118,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
