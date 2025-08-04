@@ -57,7 +57,7 @@ The script provides a clean and powerful live console UI powered by the `rich` l
 ## 🚀 Getting Started
 
 > **Note for Complete Beginners:**
-> For a detailed, step-by-step guide with screenshots covering everything from installing Python to configuring the script, please see the **[Complete User Manual.pdf](https://github.com/Snickrr/Auto-VMAF-Encoder/blob/main/Auto%20Vmaf%20Encoder%20Install%20Guide%2C%20Manual%20%26%20Technical%20Documentation%20V1.0.pdf)** included in this repository.
+> For a detailed, step-by-step guide with some screenshots covering everything from installing Python to configuring the script, please see the **[Complete User Manual.pdf](https://github.com/Snickrr/Auto-VMAF-Encoder/blob/main/Auto%20Vmaf%20Encoder%20Install%20Guide%2C%20Manual%20%26%20Technical%20Documentation%20V1.0.pdf)** included in this repository.
 >
 > The instructions below are a faster quick-start guide for users already familiar with Github, Python and command-line tools.
 
@@ -118,6 +118,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
