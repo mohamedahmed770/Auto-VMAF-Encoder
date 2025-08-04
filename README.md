@@ -3,11 +3,9 @@ An advanced Python script for video encoding that uses a data-driven approach to
 
 
 
-!\[Python](https://img.shields.io/badge/python-v3.8+-blue.svg)
-
-!\[License](https://img.shields.io/badge/license-MIT-green.svg)
-
-!\[Platform](https://img.shields.io/badge/platform-Windows-blue.svg)
+![Python](https://img.shields.io/static/v1?label=Python&message=v3.8%2B&color=blue)
+![License](https://img.shields.io/static/v1?label=License&message=MIT&color=green)
+![Platform](https://img.shields.io/static/v1?label=Platform&message=Windows&color=blue)
 
 
 
@@ -190,6 +188,7 @@ Open Source Community for the excellent Python libraries used
 
 Built with ❤️ and a lot of debugging
 Star this repository if it helped you encode better videos! ⭐
+
 
 
 
