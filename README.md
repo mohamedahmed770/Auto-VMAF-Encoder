@@ -30,7 +30,6 @@
 * **💻 Real-Time Performance Monitoring**
     * **Live Progress UI:** A beautiful and functional console interface built with `rich`.
     * **Multi-Threading:** Process multiple files in parallel with configurable worker limits.
-    * **Memory Management:** Intelligently monitors memory usage to prevent system crashes.
 
 * **📂 Intelligent File Management**
     * **Configurable Filtering:** Skip files based on duration, filesize, or bitrate.
@@ -117,6 +116,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
