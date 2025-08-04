@@ -1,6 +1,6 @@
 # AUTO VMAF ENCODER
 
-**A data-driven encoding tool that uses VMAF-based quality targeting and performance analysis to create high-quality, efficient video encodes.**
+**A data-driven encoding tool that creates high-quality, efficient video encodes by targeting a specific VMAF (Video Multimethod Assessment Fusion) score. This script automates the entire process: it intelligently analyzes videos to find the optimal quality settings, logs performance data from every encode to provide accurate ETA predictions, and displays all progress in a real-time console UI.**
 
 </div>
 
@@ -8,7 +8,6 @@
 ![Python Version](https://img.shields.io/badge/python-3.8+-blue)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
-This script automates the complex process of video encoding by intelligently analyzing video files, finding the optimal quality settings to meet a target VMAF score, and providing a real-time console UI to monitor the progress.
 
 ---
 
@@ -17,7 +16,7 @@ This script automates the complex process of video encoding by intelligently ana
 * **🧠 Smart Encoding**
     * **Intelligent Sampling:** Analyzes video samples using multiple methods (PySceneDetect, keyframes, intervals) to assess media complexity.
     * **VMAF-Targeted Quality:** Uses a binary search algorithm to find the optimal CQ/CRF value that achieves your target VMAF score with precision.
-    * **Complexity-Aware Processing:** Automatically adjusts parameters based on video complexity analysis.
+
 
 * **⚙️ Multi-Encoder Support**
     * **NVENC AV1:** Hardware-accelerated encoding with configurable presets.
@@ -47,7 +46,7 @@ The script provides a clean and powerful live console UI powered by the `rich` l
 
 **The interface provides at-a-glance information on:**
 
-* **Overall Batch Progress: A summary panel shows files completed, total space saved, elapsed time, and a dynamically updated ETA (which improves in accuracy over time).
+* **Overall Batch Progress:** A summary panel shows files completed, total space saved, elapsed time, and a dynamically updated ETA (which improves in accuracy over time).
 * **Parallel Worker Status:** See the status and logs for each video being processed in its own dedicated panel.
 * **Real-Time Progress Bars:** Detailed progress bars for time-consuming operations like VMAF analysis and the final encode.
 * **System Monitoring:** Live RAM usage to ensure system stability during intensive encodes.
@@ -118,6 +117,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
