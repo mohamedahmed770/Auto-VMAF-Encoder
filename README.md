@@ -13,8 +13,13 @@
 
 ## 🎯 Key Features
 
+* **⚡ Performance**
+    * **Multi-Threading:** Process multiple files in parallel with configurable worker limits to maximize hardware utilization.
+    * **Parallelized VMAF Search:** Accelerates the quality-finding process by running multiple VMAF comparison tests concurrently within each file's analysis.
+
 * **🧠 Smart Encoding**
     * **Intelligent Sampling:** Analyzes video samples using multiple methods (PySceneDetect, keyframes, intervals) to assess media complexity.
+    * **Resilient Sampling Strategy:** Employs a fallback system that automatically moves from scene-detection to keyframe analysis and finally to simple intervals to guarantee a reliable analysis for any type of video.
     * **VMAF-Targeted Quality:** Uses a binary search algorithm to find the optimal CQ/CRF value that achieves your target VMAF score with precision.
 
 
@@ -26,15 +31,17 @@
 * **🚀 Advanced Caching System**
     * **VMAF Cache:** Avoids re-testing identical video samples, dramatically speeding up re-runs.
     * **Performance Database:** Learns from past encodes to provide increasingly accurate ETA predictions.
+    * **Adaptive ETA Calculation:** The ETA actively adjusts based on real-world performance during the current session, giving you a more realistic completion time.
 
 * **💻 Real-Time Performance Monitoring**
     * **Live Progress UI:** A beautiful and functional console interface built with `rich`.
-    * **Multi-Threading:** Process multiple files in parallel with configurable worker limits.
+    * **Detailed Statistics:** See real-time ETA, memory usage, space saved, and the status of each individual worker at a glance.
 
 * **📂 Intelligent File Management**
     * **Configurable Filtering:** Skip files based on duration, filesize, or bitrate.
     * **Size Reduction Validation:** Only replaces the source file if the encode is meaningfully smaller.
     * **Flexible I/O:** Configurable input/output directories and file naming schemes.
+    * **Automatic Skip Logic:** Intelligently ignores files that have already been processed by checking for the output or a custom "skipped" suffix.
 ---
 ## 🖥️ Console Interface
 
@@ -116,6 +123,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
