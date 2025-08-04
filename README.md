@@ -101,7 +101,7 @@ Before you begin, ensure you have the following installed and accessible:
 
 ## 🤝 Contributing
 
-This project was created by someone with no prior coding experience, using AI assistance for advanced mathematics and coding implementation. The core ideas and extensive debugging/fine-tuning were done manually.
+This project was created by someone with no prior coding experience, using AI assistance (Claude Sonnet 4, Opus 4 and Gemini Pro 2.5) for advanced mathematics and coding implementation. The core ideas and extensive debugging/fine-tuning were done manually.
 
 Contributions are welcome! Please feel free to:
 * Report bugs or suggest features by opening an issue.
@@ -123,6 +123,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
