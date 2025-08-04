@@ -91,21 +91,7 @@ Before you begin, ensure you have the following installed and accessible:
     ```
 
 3.  **Configure `config.ini`**
-    This is the final and most important step.
-    * Make a copy of `config.ini.example` and rename it to `config.ini`.
-    * Open `config.ini` with a text editor.
-    * Update the `[Paths]` section to match the locations of your files. The VMAF model path will now point to the file inside your project folder.
-
-    > **💡 Pro-Tip:** To avoid potential issues, it's a good practice to rename your `vendor (VMAF MODEL)` folder to something simple without spaces, like `vendor` or `assets`.
-
-    ```ini
-    [Paths]
-    ffmpeg_path = C:/ffmpeg/bin/ffmpeg.exe
-    ffprobe_path = C:/ffmpeg/bin/ffprobe.exe
-    vmaf_model_path = vendor (VMAF MODEL)/vmaf_v0.6.1.json
-    ```
-
-After saving `config.ini`, your setup is complete! You can now run the script.
+    Full configuration settings can be found as a PDF: Auto Vmaf Encoder Manual & Technical Documentation
 
 ---
 
@@ -133,4 +119,5 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
