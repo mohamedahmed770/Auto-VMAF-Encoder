@@ -80,7 +80,7 @@ Before you begin, ensure you have the following installed and accessible:
 1.  **Clone the Repository**
     This is the main step. It will download the script, configuration settings (config.ini), and the **required VMAF model file** all at once.
     ```bash
-    git clone [https://github.com/Snickrr/Auto-VMAF-Encoder.git](https://github.com/Snickrr/Auto-VMAF-Encoder.git)
+    git clone https://github.com/Snickrr/Auto-VMAF-Encoder.git
     cd Auto-VMAF-Encoder
     ```
 
@@ -119,6 +119,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
