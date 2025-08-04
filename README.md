@@ -12,7 +12,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python Version](https://img.shields.io/badge/python-3.8+-blue)
-![Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
+![Windows](https://img.shields.io/badge/-Windows-0078D6?logo=windows&logoColor=white)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)
 
 
@@ -124,6 +124,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
