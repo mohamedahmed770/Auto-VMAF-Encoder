@@ -2,6 +2,12 @@
 
 **A data-driven encoding tool that creates high-quality, efficient video encodes by targeting a specific VMAF (Video Multimethod Assessment Fusion) score. This script automates the entire process: it intelligently analyzes videos to find the optimal quality settings, logs performance data from every encode to provide accurate ETA predictions, and displays all progress in a real-time console UI.**
 
+<details>
+  <summary><strong>What is VMAF?</strong> (Click to expand)</summary>
+  
+  Video Multimethod Assessment Fusion (VMAF) is a perceptual video quality metric developed by Netflix. It uses a machine-learning model to predict subjective video quality more accurately than traditional metrics like PSNR or SSIM. It has become an industry standard for optimizing video encoding to ensure the best viewing experience for a given bandwidth. This script leverages VMAF to make intelligent, quality-based encoding decisions.
+</details>
+
 </div>
 
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -73,12 +79,6 @@ Before you begin, ensure you have the following installed and accessible:
 * ✅ **Python 3.8+**: Make sure it's added to your system's PATH during installation. ([Download](https://python.org/downloads/))
 * ✅ **FFmpeg**: The `ffmpeg` and `ffprobe` command-line tools. Full builds for Windows are available from [Gyan.dev](https://www.gyan.dev/ffmpeg/builds/). It's recommended to unzip them to a simple, persistent location like `C:\ffmpeg`.
 
-<details>
-  <summary><strong>What is VMAF?</strong> (Click to expand)</summary>
-  
-  Video Multimethod Assessment Fusion (VMAF) is a perceptual video quality metric developed by Netflix. It uses a machine-learning model to predict subjective video quality more accurately than traditional metrics like PSNR or SSIM. It has become an industry standard for optimizing video encoding to ensure the best viewing experience for a given bandwidth. This script leverages VMAF to make intelligent, quality-based encoding decisions.
-</details>
-
 ### Installation & Configuration
 
 1.  **Clone the Repository**
@@ -123,6 +123,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
