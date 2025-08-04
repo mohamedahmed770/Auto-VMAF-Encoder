@@ -37,7 +37,20 @@ This script automates the complex process of video encoding by intelligently ana
     * **Configurable Filtering:** Skip files based on duration, filesize, or bitrate.
     * **Size Reduction Validation:** Only replaces the source file if the encode is meaningfully smaller.
     * **Flexible I/O:** Configurable input/output directories and file naming schemes.
+---
+## 🖥️ Console Interface
 
+The script provides a clean and powerful live console UI powered by the `rich` library to monitor the entire encoding process at a glance.
+
+*(You can place your GIF recording of the script running here!)*
+
+![Live Demo of Auto VMAF Encoder](https://github.com/Snickrr/Auto-VMAF-Encoder/blob/main/images/demo.gif) 
+**The interface provides at-a-glance information on:**
+
+* **Overall Batch Progress:** A summary panel shows files completed, total space saved, elapsed time, and a dynamically updated ETA.
+* **Parallel Worker Status:** See the status and logs for each video being processed in its own dedicated panel.
+* **Real-Time Progress Bars:** Detailed progress bars for time-consuming operations like VMAF analysis and the final encode.
+* **System Monitoring:** Live RAM usage to ensure system stability during intensive encodes.
 ---
 
 ## 🚀 Getting Started
@@ -101,6 +114,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
