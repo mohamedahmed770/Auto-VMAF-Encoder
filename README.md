@@ -45,6 +45,7 @@ The script provides a clean and powerful live console UI powered by the `rich` l
 *(You can place your GIF recording of the script running here!)*
 
 ![Live Demo of Auto VMAF Encoder](https://github.com/Snickrr/Auto-VMAF-Encoder/blob/main/images/demo.gif) 
+
 **The interface provides at-a-glance information on:**
 
 * **Overall Batch Progress:** A summary panel shows files completed, total space saved, elapsed time, and a dynamically updated ETA.
@@ -114,6 +115,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
