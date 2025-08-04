@@ -1,21 +1,3 @@
-Auto-VMAF Encoder
-
-An advanced Python script for video encoding that uses a data-driven approach to determine optimal encoding parameters. The script finds the perfect CQ/CRF (Constant Quality Factor / Constant Rate Factor) value to achieve a target video quality, as measured by a predefined VMAF (Video Multimethod Assessment Fusion) score.
-
-
-
-![Python](https://img.shields.io/static/v1?label=Python&message=v3.8%2B&color=blue)
-![License](https://img.shields.io/static/v1?label=License&message=MIT&color=green)
-![Platform](https://img.shields.io/static/v1?label=Platform&message=Windows&color=blue)
-
-
-
-🖥️ Console Interface
-
-![Demo GIF](images/DemoUncached.gif)  
-
-<div align="center">
-
 # AUTO VMAF ENCODER
 
 **A data-driven encoding tool that uses VMAF-based quality targeting and performance analysis to create high-quality, efficient video encodes.**
@@ -119,6 +101,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
