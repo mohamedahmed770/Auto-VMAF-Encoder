@@ -60,67 +60,52 @@ This script automates the complex process of video encoding by intelligently ana
 
 ## 🚀 Getting Started
 
+This guide will walk you through setting up the script and its dependencies.
+
 ### Prerequisites
 
-* Python 3.8+
-* FFmpeg (must be compiled with `libvmaf` support)
-* **Optional (Recommended):** `opencv-python` for advanced scene detection.
+Before you begin, ensure you have the following installed and accessible:
 
-### Installation
+* ✅ **Python 3.8+**: Make sure it's added to your system's PATH during installation. ([Download](https://python.org/downloads/))
+* ✅ **FFmpeg**: The `ffmpeg` and `ffprobe` command-line tools. Full builds for Windows are available from [Gyan.dev](https://www.gyan.dev/ffmpeg/builds/). It's recommended to unzip them to a simple, persistent location like `C:\ffmpeg`.
+
+<details>
+  <summary><strong>What is VMAF?</strong> (Click to expand)</summary>
+  
+  Video Multimethod Assessment Fusion (VMAF) is a perceptual video quality metric developed by Netflix. It uses a machine-learning model to predict subjective video quality more accurately than traditional metrics like PSNR or SSIM. It has become an industry standard for optimizing video encoding to ensure the best viewing experience for a given bandwidth. This script leverages VMAF to make intelligent, quality-based encoding decisions.
+</details>
+
+### Installation & Configuration
 
 1.  **Clone the Repository**
+    This is the main step. It will download the script, the banner font, the configuration examples, and the **required VMAF model file** all at once.
     ```bash
-    git clone [https://github.com/your-username/your-repository-name.git](https://github.com/your-username/your-repository-name.git)
-    cd your-repository-name
+    git clone [https://github.com/Snickrr/Auto-VMAF-Encoder.git](https://github.com/Snickrr/Auto-VMAF-Encoder.git)
+    cd Auto-VMAF-Encoder
     ```
 
-2.  **Install Dependencies**
-    A `requirements.txt` file is provided. Install all required Python packages with:
+2.  **Install Python Libraries**
+    Open a Command Prompt or Terminal in the project folder and run the following command:
     ```bash
-    pip install -r requirements.txt
-    ```
-    For the optional (but recommended) advanced scene detection:
-    ```bash
-    pip install scenedetect[opencv]
+    pip install rich psutil "scenedectect[opencv]"
     ```
 
-3.  **Configure the Script**
+3.  **Configure `config.ini`**
+    This is the final and most important step.
     * Make a copy of `config.ini.example` and rename it to `config.ini`.
-    * Edit `config.ini` with a text editor.
-    * **Required:** You must set the correct paths to your `ffmpeg` executable, `ffprobe` executable, and the VMAF model file (`.json`).
+    * Open `config.ini` with a text editor.
+    * Update the `[Paths]` section to match the locations of your files. The VMAF model path will now point to the file inside your project folder.
 
-### Running the Script
+    > **💡 Pro-Tip:** To avoid potential issues, it's a good practice to rename your `vendor (VMAF MODEL)` folder to something simple without spaces, like `vendor` or `assets`.
 
-Once configured, run the encoder from your terminal:
-```bash
-python auto_vmaf_encoder.py
-```
+    ```ini
+    [Paths]
+    ffmpeg_path = C:/ffmpeg/bin/ffmpeg.exe
+    ffprobe_path = C:/ffmpeg/bin/ffprobe.exe
+    vmaf_model_path = vendor (VMAF MODEL)/vmaf_v0.6.1.json
+    ```
 
----
-
-## ⚙️ Configuration
-
-All settings are controlled via the `config.ini` file.
-
-#### Essential Settings
-```ini
-[Paths]
-ffmpeg_path = /path/to/your/ffmpeg
-ffprobe_path = /path/to/your/ffprobe
-vmaf_model_path = /path/to/your/vmaf_v0.6.1.json
-
-[VMAF_Targeting]
-target_vmaf = 95.0
-vmaf_tolerance = 1.0
-cq_search_min = 15
-cq_search_max = 35
-```
-
-#### Advanced Options
-* **Encoder Selection:** Choose between `nvenc` and `svt_av1`.
-* **Sampling Methods:** `tier0` (PySceneDetect), `tier1` (keyframes), or `tier2` (intervals).
-* **Performance Tuning:** Worker counts, memory limits, parallel VMAF runs.
-* **File Filtering & Management:** Set thresholds for duration, size, and bitrate, and control output naming and source file deletion.
+After saving `config.ini`, your setup is complete! You can now run the script.
 
 ---
 
@@ -148,3 +133,4 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
