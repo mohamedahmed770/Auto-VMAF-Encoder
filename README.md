@@ -92,7 +92,7 @@ Before you begin, ensure you have the following installed and accessible:
 2.  **Install Python Libraries**
     Open a Command Prompt or Terminal in the project folder and run the following command:
     ```bash
-    pip install rich psutil "scenedectect[opencv]"
+    pip install rich psutil "scenedetect[opencv]"
     ```
 
 3.  **Configure `config.ini`**
@@ -124,6 +124,7 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 **Star this repository if it helped you encode better videos! ⭐**
 
 </div>
+
 
 
 
