@@ -1,6 +1,8 @@
 import configparser
 import concurrent.futures
 import hashlib
+import queue
+import select
 import itertools
 import json
 import os
@@ -1580,8 +1582,47 @@ def rename_skipped_file(filepath: str, task_id: int, log_callback):
     except Exception as e:
         log_callback(task_id, f"[red]Error renaming file {filepath}: {e}[/red]")
 
+
+def read_stderr_non_blocking(process, timeout=30):
+
+    if os.name == 'nt':  # Windows-specific implementation
+        q = queue.Queue()
+
+        def enqueue_output(out, q):
+            try:
+                for line in iter(out.readline, ''):
+                    q.put(line)
+            finally:
+                out.close()
+                q.put(None)  # Signal that we are done
+
+        t = threading.Thread(target=enqueue_output, args=(process.stderr, q), daemon=True)
+        t.start()
+
+        while process.poll() is None or not q.empty():
+            try:
+                line = q.get(timeout=timeout)
+                if line is None:  # End-of-stream signal
+                    break
+                yield line
+            except queue.Empty:
+                yield None  # Timeout signal
+    else:  # Unix-like implementation
+        while True:
+            ready, _, _ = select.select([process.stderr], [], [], timeout)
+            if not ready:
+                if process.poll() is not None:
+                    break
+                yield None  # Timeout signal
+                continue
+
+            line = process.stderr.readline()
+            if not line:  # End-of-stream
+                break
+            yield line
+
 def run_encode(input_path: str, cq_value: int, task_id: int, batch_state: Dict, lock: threading.Lock, metrics: dict, log_callback, worker_progress, worker_task_id, timings: dict) -> bool:
-    """Runs the final, full-length encode of the video file."""
+    """Runs the final encode with robust monitoring and completion detection."""
     start_time = time.time()
     p_input = Path(input_path)
 
@@ -1590,6 +1631,13 @@ def run_encode(input_path: str, cq_value: int, task_id: int, batch_state: Dict, 
 
     temp_output = output_dir / f"{p_input.stem}_temp{p_input.suffix}"
     final_output = output_dir / f"{p_input.stem}{SETTINGS.output_suffix}{p_input.suffix}"
+
+    # --- ADDED: Cleanup for any previous failed runs ---
+    if temp_output.exists():
+        try:
+            temp_output.unlink()
+        except OSError:
+            pass # Ignore if we can't delete it right away
 
     video_stream = next((s for s in metrics.get('media_info', {}).get('streams', []) if s.get('codec_type') == 'video'), None)
     if not video_stream:
@@ -1606,21 +1654,124 @@ def run_encode(input_path: str, cq_value: int, task_id: int, batch_state: Dict, 
     ]
 
     log_callback(task_id, f"Starting final encode with {SETTINGS.encoder_type.upper()} (CQ/CRF: {cq_value})...")
+    
+    # --- ADDED: All the monitoring state variables ---
+    last_size = 0
+    last_activity_time = time.time()
+    last_progress_time = time.time()
+    last_reported_progress = 0
+    stuck_at_100_time = None
+    size_at_100 = None
+    monitor_exception = None
+
+   
+    MAX_IDLE_TIME = 300  # 5 minutes with no file growth
+    MAX_STUCK_AT_100_TIME = 120  # 2 minutes stuck at 100%
+    PROGRESS_TIMEOUT = 600  # 10 minutes with no progress updates from stderr
+
     try:
         process = subprocess.Popen(cmd, stderr=subprocess.PIPE, universal_newlines=True, bufsize=1, encoding='utf-8', env=FFMPEG_ENV)
-        duration, time_pattern = metrics['video_duration_seconds'], re.compile(r"time=(\d{2}):(\d{2}):(\d{2})\.(\d{2})")
-        for line in process.stderr:
+        duration = metrics['video_duration_seconds']
+        time_pattern = re.compile(r"time=(\d{2}):(\d{2}):(\d{2})\.(\d{2})")
+        
+ 
+        stop_monitor = threading.Event()
+        
+        def monitor_file_activity():
+            nonlocal last_size, last_activity_time, monitor_exception
+            try:
+                while not stop_monitor.is_set():
+                    if temp_output.exists():
+                        try:
+                            current_size = temp_output.stat().st_size
+                            if current_size > last_size:
+                                last_size = current_size
+                                last_activity_time = time.time()
+                        except (OSError, IOError):
+                            pass # File might be locked, that's okay
+
+                    # Check if we've been idle too long
+                    idle_time = time.time() - last_activity_time
+                    if idle_time > MAX_IDLE_TIME:
+                        monitor_exception = RuntimeError(f"File hasn't grown for {idle_time:.0f}s (stalled)")
+                        break
+                    
+                    stop_monitor.wait(5)  # Check every 5 seconds
+            except Exception as e:
+                monitor_exception = e
+        
+        monitor_thread = threading.Thread(target=monitor_file_activity, daemon=True)
+        monitor_thread.start()
+        
+   
+        for line in read_stderr_non_blocking(process, timeout=30):
+            if line is None:  # Timeout occurred
+                if process.poll() is not None: break # Process exited, stop reading
+                if time.time() - last_progress_time > PROGRESS_TIMEOUT:
+                    raise RuntimeError(f"No progress updates for {PROGRESS_TIMEOUT}s")
+                continue # No new line, just continue waiting
+
+            # We have a line from FFmpeg, so reset the progress timer
+            last_progress_time = time.time()
             m = time_pattern.search(line)
             if m and duration > 0:
-                h, m_str, s, ms = map(int, m.groups()); current_time = h * 3600 + m_str * 60 + s + ms/100
-                with lock: worker_progress.update(worker_task_id, completed=(current_time / duration) * 100)
+                h, m_str, s, ms = map(int, m.groups())
+                current_time = h * 3600 + m_str * 60 + s + ms/100
+                progress = min(100.0, (current_time / duration) * 100)
+                
+                if progress >= 99.9:
+                    if stuck_at_100_time is None:
+                        stuck_at_100_time = time.time()
+                        size_at_100 = last_size
+                        log_callback(task_id, "[yellow]Reached 100%, waiting for finalization...[/yellow]")
+                
+                if progress > last_reported_progress:
+                    with lock: worker_progress.update(worker_task_id, completed=progress)
+                    last_reported_progress = progress
+            
+            # Check if the background monitor found a problem
+            if monitor_exception:
+                raise monitor_exception
 
-        process.wait()
-        if process.returncode != 0:
-            log_callback(task_id, f"[red]Encoding failed: FFmpeg returned code {process.returncode}[/red]"); return False
+     
+        stop_monitor.set()
+        monitor_thread.join(timeout=5)
+        
+        log_callback(task_id, "[dim]Progress parsing finished. Waiting for FFmpeg process to exit...[/dim]")
+        try:
+            process.wait(timeout=60) # Give FFmpeg 1 minute to close gracefully
+        except subprocess.TimeoutExpired:
+            log_callback(task_id, "[yellow]FFmpeg did not exit cleanly. Terminating...[/yellow]")
+            process.terminate()
+            try:
+                process.wait(timeout=10)
+            except subprocess.TimeoutExpired:
+                log_callback(task_id, "[red]FFmpeg did not respond to terminate. Killing...[/red]")
+                process.kill()
+                process.wait(timeout=10)
+        
+        if process.returncode != 0 and process.returncode is not None:
+             log_callback(task_id, f"[red]Encoding failed: FFmpeg returned code {process.returncode}[/red]")
+             return False
+        
         if not temp_output.exists() or temp_output.stat().st_size < 1024:
-            log_callback(task_id, "[red]Encoding produced an empty file.[/red]"); return False
+            log_callback(task_id, "[red]Encoding produced an empty or missing file.[/red]")
+            return False
 
+        # --- ADDED: Final verification with ffprobe ---
+        log_callback(task_id, "[dim]Verifying output file integrity...[/dim]")
+        output_info = get_media_info(str(temp_output))
+        if not (output_info and 'format' in output_info):
+            log_callback(task_id, "[red]Verification failed: Could not read info from encoded file.[/red]")
+            return False
+            
+        output_duration = float(output_info['format'].get('duration', 0))
+        duration_diff = abs(output_duration - metrics['video_duration_seconds'])
+        if duration_diff > 2.0: # Allow 2 second difference
+            log_callback(task_id, f"[red]Verification failed: Duration mismatch! Expected ~{metrics['video_duration_seconds']:.1f}s, Got {output_duration:.1f}s.[/red]")
+            return False
+
+        # --- MODIFIED: Rest of the logic remains similar but is now more robust ---
         output_size, input_size = temp_output.stat().st_size, metrics['input_size_bytes']
         size_reduction_percent = ((input_size - output_size) / input_size) * 100
 
@@ -1637,17 +1788,29 @@ def run_encode(input_path: str, cq_value: int, task_id: int, batch_state: Dict, 
             log_callback(task_id, f"[green]Success: Source file deleted, encoded file saved (reduced by {size_reduction_percent:.1f}%).[/green]")
         else:
             log_callback(task_id, f"[green]Success: Source file kept, encoded file saved (reduced by {size_reduction_percent:.1f}%).[/green]")
-        with lock: 
-            worker_progress.update(worker_task_id, completed=100, description="Encoded")
-
+        
         with lock:
-            batch_state['deleted_source_size'] += input_size; batch_state['encoded_output_size'] += output_size
+            worker_progress.update(worker_task_id, completed=100, description="Encoded")
+            batch_state['deleted_source_size'] += input_size
+            batch_state['encoded_output_size'] += output_size
+        
         log_enhanced_results(str(p_input), str(final_output), cq_value, time.time() - start_time, "Success", metrics, timings)
         return True
+
     except Exception as e:
-        log_callback(task_id, f"[red]Encoding error: {e}[/red]"); return False
+        log_callback(task_id, f"[red]Encoding error: {e}[/red]")
+        # Ensure process is terminated on any error
+        if 'process' in locals() and process.poll() is None:
+            process.kill()
+            process.wait()
+        return False
     finally:
-        if temp_output.exists(): temp_output.unlink()
+        # Final cleanup of temp file
+        if temp_output.exists() and not final_output.exists():
+            try:
+                temp_output.unlink()
+            except OSError:
+                pass
 
 def handle_failed_file(filepath: str, task_id: int, lock: threading.Lock, batch_state: Dict, reason: str, metrics: dict):
     """Handles logging and state updates for files that are skipped or fail."""
